@@ -117,11 +117,12 @@ export function Hero() {
               {/* High-fidelity glass framing */}
               <div className="absolute inset-4 rounded-2xl border border-white/[0.06] bg-white/[0.01] backdrop-blur-[1px] shadow-3xl overflow-hidden flex items-end justify-center group">
                 <Image
-                  src="/images/hemanth_latest_26.jpg"
+                  src={`${process.env.NODE_ENV === "production" ? "/Portfolio" : ""}/images/hemanth_latest_26.jpg`}
                   alt="Pangoth Hemanth Nayak Professional Portrait"
                   fill
                   className="object-cover object-bottom scale-[1.01] group-hover:scale-[1.02] transition-transform duration-700 ease-out z-10"
                   priority
+                  unoptimized
                 />
                 
                 {/* Smooth cinematic bottom gradient transition */}

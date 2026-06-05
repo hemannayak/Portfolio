@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown, FileText, ArrowUpRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
-
+import Image from "next/image";
+import Link from "next/link";
 const roles = [
   "NLP Research Intern",
   "Data Science Student",
@@ -89,7 +90,7 @@ export function Hero() {
               <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform text-[#0B0B0F]" />
             </a>
 
-            <a
+            <Link
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -98,7 +99,7 @@ export function Hero() {
               <FileText className="w-3.5 h-3.5" />
               <span>Download Resume</span>
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-[#A1A1AA]" />
-            </a>
+            </Link>
           </FadeIn>
         </div>
 
@@ -115,11 +116,12 @@ export function Hero() {
 
               {/* High-fidelity glass framing */}
               <div className="absolute inset-4 rounded-2xl border border-white/[0.06] bg-white/[0.01] backdrop-blur-[1px] shadow-3xl overflow-hidden flex items-end justify-center group">
-                <img
+                <Image
                   src="/images/hemanth_latest_26.jpg"
                   alt="Pangoth Hemanth Nayak Professional Portrait"
-                  className="w-full h-full object-cover object-bottom scale-[1.01] group-hover:scale-[1.02] transition-transform duration-700 ease-out z-10"
-                  loading="eager"
+                  fill
+                  className="object-cover object-bottom scale-[1.01] group-hover:scale-[1.02] transition-transform duration-700 ease-out z-10"
+                  priority
                 />
                 
                 {/* Smooth cinematic bottom gradient transition */}

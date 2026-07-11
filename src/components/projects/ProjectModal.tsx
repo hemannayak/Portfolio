@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Project } from "@/constants/projects";
+import { cn } from "@/utils/cn";
 import { GithubIcon } from "@/components/common/Icons";
 import { X, ArrowUpRight, CheckCircle2, AlertCircle, Network, Code2, LineChart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,23 +14,120 @@ interface ProjectModalProps {
 }
 
 export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
+  const [previewMode, setPreviewMode] = useState<"console" | "live">("console");
+
   // Prevent background scroll when modal is active
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      setPreviewMode("console");
     } else {
       document.body.style.overflow = "unset";
     }
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [isOpen]);
+  }, [isOpen, project]);
 
   if (!project) return null;
 
   // React-rendered console dashboard that serves as a high-fidelity "Screenshot / System Console" preview
   const renderScreenshotShowcase = (id: string) => {
     switch (id) {
+      case "transitos":
+        return (
+          <div className="relative w-full aspect-[16/9] bg-black rounded-xl border border-white/[0.06] overflow-hidden p-6 flex flex-col justify-between font-mono text-[10px] text-[#A1A1AA] shadow-inner">
+            <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 bg-red-500/80 rounded-full" />
+                <div className="w-2 h-2 bg-yellow-500/80 rounded-full" />
+                <div className="w-2 h-2 bg-green-500/80 rounded-full" />
+                <span className="text-white/30 text-[9px] ml-2">TRANSITOS_PAYMENT_RECON</span>
+              </div>
+              <span className="text-emerald-400 animate-pulse">BAILEYS_SOCKET: PAIRED</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 items-stretch my-auto">
+              {/* Left: Fuzzy Match Log */}
+              <div className="space-y-1.5 p-3 bg-white/[0.01] border border-white/[0.06] rounded-lg">
+                <div className="text-[9px] text-white/30 uppercase mb-2">PhonePe CSV Fuzzy Matcher</div>
+                <div className="flex justify-between"><span className="text-white/50">CSV Rows Ingested</span><span className="text-emerald-400 font-bold">82</span></div>
+                <div className="flex justify-between"><span className="text-white/50">Auto-Matched (≥60%)</span><span className="text-emerald-400 font-bold">76</span></div>
+                <div className="flex justify-between"><span className="text-white/50">Unresolved Queue</span><span className="text-amber-400 font-bold">6</span></div>
+                <div className="border-t border-white/[0.04] pt-1 flex justify-between">
+                  <span className="text-white/50">Match Accuracy</span>
+                  <span className="text-[#7C86FF] font-bold">98.4%</span>
+                </div>
+                <div className="text-[7.5px] text-white/30 border-t border-white/[0.04] pt-1">
+                  algo: fastest-levenshtein@1.0.16
+                </div>
+              </div>
+
+              {/* Right: cron scheduler + PDF dispatch */}
+              <div className="space-y-1.5 p-3 bg-white/[0.01] border border-white/[0.06] rounded-lg">
+                <div className="text-[9px] text-white/30 uppercase mb-2">Automation Pipeline Status</div>
+                <div className="flex justify-between"><span className="text-white/50">Reminder 1 (Day 1)</span><span className="text-emerald-400 font-bold">SENT</span></div>
+                <div className="flex justify-between"><span className="text-white/50">Reminder 2 (Day 5)</span><span className="text-emerald-400 font-bold">SENT</span></div>
+                <div className="flex justify-between"><span className="text-white/50">Final Warning</span><span className="text-amber-400 font-bold">QUEUED</span></div>
+                <div className="border-t border-white/[0.04] pt-1 flex justify-between">
+                  <span className="text-white/50">PDF Receipts Dispatched</span>
+                  <span className="text-[#7C86FF] font-bold">76</span>
+                </div>
+                <div className="text-[7.5px] text-emerald-400/70 border-t border-white/[0.04] pt-1">
+                  [WA Socket] session active · pdfkit@0.14.0
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between border-t border-white/[0.06] pt-3 text-[9px] text-white/30">
+              <span>STACK: Next.js · Express · PostgreSQL · Prisma</span>
+              <span className="text-[#7C86FF]">MONOREPO WORKSPACES</span>
+            </div>
+          </div>
+        );
+
+      case "globalshala-analytics":
+        return (
+          <div className="relative w-full aspect-[16/9] bg-black rounded-xl border border-white/[0.06] overflow-hidden p-6 flex flex-col justify-between font-mono text-[10px] text-[#A1A1AA] shadow-inner">
+            <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 bg-red-500/80 rounded-full" />
+                <div className="w-2 h-2 bg-yellow-500/80 rounded-full" />
+                <div className="w-2 h-2 bg-green-500/80 rounded-full" />
+                <span className="text-white/30 text-[9px] ml-2">GLOBALSHALA_SUPERHEROU_ANALYTICS</span>
+              </div>
+              <span className="text-amber-500">POWERBI_LIVE</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 items-stretch my-auto">
+              <div className="space-y-2 p-3 bg-white/[0.01] border border-white/[0.06] rounded-lg">
+                <div className="text-[9px] text-white/30 uppercase">Demographic Spend Optimizer</div>
+                <div className="space-y-1">
+                  <div className="flex justify-between"><span>Age 18-24 CTR:</span><span className="text-emerald-500 font-bold">12.95% (High)</span></div>
+                  <div className="flex justify-between"><span>Age 25-34 CTR:</span><span className="text-red-400 font-bold">4.80% (Low)</span></div>
+                  <div className="flex justify-between"><span>Age 13-17 CTR:</span><span className="text-red-400 font-bold">3.10% (Low)</span></div>
+                  <div className="flex justify-between"><span>Spend optimization:</span><span className="text-emerald-400 font-bold">Reallocated</span></div>
+                </div>
+              </div>
+
+              <div className="space-y-2 p-3 bg-white/[0.01] border border-white/[0.06] rounded-lg flex flex-col justify-center">
+                <div className="text-[9px] text-white/30 uppercase mb-2">Campaign Yield Metrics</div>
+                <div className="space-y-1.5 text-[8.5px]">
+                  <div className="flex justify-between"><span>Wasted Spend Halted:</span><span className="text-emerald-400 font-bold">₹5,900</span></div>
+                  <div className="flex justify-between"><span>Target CPC:</span><span className="text-emerald-400 font-bold">₹5.68</span></div>
+                  <div className="flex justify-between"><span>Initial CPC:</span><span className="text-red-400 font-bold">₹10.18</span></div>
+                  <div className="flex justify-between"><span>CTR Growth:</span><span className="text-emerald-400 font-bold">+168%</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between border-t border-white/[0.06] pt-3 text-[9px] text-white/30">
+              <span>DASHBOARD: POWER BI LIVE DESKTOP</span>
+              <span>SEGMENTS: AGE / REGIONAL MAPS</span>
+            </div>
+          </div>
+        );
+
       case "multimodal-emotion-recognition":
         return (
           <div className="relative w-full aspect-[16/9] bg-black rounded-xl border border-white/[0.06] overflow-hidden p-6 flex flex-col justify-between font-mono text-[10px] text-[#A1A1AA] shadow-inner">
@@ -174,7 +272,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           {/* Backdrop blur overlay */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -190,36 +288,36 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 20 }}
             transition={{ type: "spring", duration: 0.55, bounce: 0.12 }}
-            className="w-full max-w-3xl bg-[#121218] border border-white/[0.06] rounded-2xl p-6 md:p-10 z-10 my-8 relative shadow-3xl text-left font-sans"
+            className="w-full max-w-3xl h-[85vh] max-h-[800px] bg-[#121218] border border-white/[0.06] rounded-2xl z-10 relative shadow-3xl text-left font-sans flex flex-col overflow-hidden"
             role="dialog"
             aria-modal="true"
           >
-            {/* Close trigger button */}
-            <button
-              onClick={onClose}
-              className="absolute top-5 right-5 p-2 rounded-full border border-white/[0.06] hover:bg-white/5 text-[#A1A1AA] hover:text-[#F5F5F5] transition-colors cursor-pointer"
-              aria-label="Close case study"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            {/* Header Area */}
-            <div className="mb-8 pr-8">
-              <span className="text-[10px] font-mono tracking-widest text-[#7C86FF] uppercase px-2.5 py-0.5 rounded-full bg-[#7C86FF]/10 font-bold mb-3 inline-block">
+            {/* Sticky Header Area */}
+            <div className="p-6 md:p-8 border-b border-white/[0.06] shrink-0 relative pr-14">
+              <span className="text-[10px] font-mono tracking-widest text-[#7C86FF] uppercase px-2.5 py-0.5 rounded-full bg-[#7C86FF]/10 font-bold mb-2.5 inline-block">
                 {project.category}
               </span>
               
-              <h2 className="text-xl md:text-2xl font-bold text-[#F5F5F5] tracking-tight mb-2.5">
+              <h2 className="text-xl md:text-2xl font-bold text-[#F5F5F5] tracking-tight mb-2">
                 {project.title}
               </h2>
               
-              <p className="text-xs text-[#A1A1AA] leading-relaxed">
+              <p className="text-xs text-[#A1A1AA] leading-relaxed max-w-2xl">
                 {project.description}
               </p>
+
+              {/* Close trigger button */}
+              <button
+                onClick={onClose}
+                className="absolute top-6 right-6 p-2 rounded-full border border-white/[0.06] hover:bg-white/5 text-[#A1A1AA] hover:text-[#F5F5F5] transition-colors cursor-pointer"
+                aria-label="Close case study"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
-            {/* Content Details: Problem -> Approach -> Outcome (Recruiter High Signal) */}
-            <div className="space-y-8">
+            {/* Scrollable Content Body */}
+            <div className="flex-grow overflow-y-auto p-6 md:p-8 space-y-8 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
               {/* Metric Callouts */}
               {project.metrics && project.metrics.length > 0 && (
                 <div className="grid grid-cols-3 gap-4 p-4 rounded-xl bg-black/40 border border-white/[0.06]">
@@ -252,8 +350,58 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
 
               {/* Graphical Screenshot Showcase Area */}
               <div>
-                <h4 className="text-xs font-mono uppercase text-[#A1A1AA] tracking-wider mb-3 font-semibold">System Dashboard Console</h4>
-                {renderScreenshotShowcase(project.id)}
+                <div className="flex items-center justify-between mb-3 border-b border-white/[0.04] pb-2">
+                  <h4 className="text-xs font-mono uppercase text-[#A1A1AA] tracking-wider font-semibold">
+                    System Preview
+                  </h4>
+                  {project.links.live && (
+                    <div className="flex items-center gap-1.5 bg-white/[0.02] p-0.5 rounded border border-white/[0.06]">
+                      <button 
+                        onClick={() => setPreviewMode("console")} 
+                        className={cn("px-2.5 py-1 text-[9px] font-mono rounded transition-all cursor-pointer", previewMode === "console" ? "bg-[#7C86FF] text-[#0B0B0F] font-bold" : "text-[#A1A1AA] hover:text-[#F5F5F5]")}
+                      >
+                        Console
+                      </button>
+                      <button 
+                        onClick={() => setPreviewMode("live")} 
+                        className={cn("px-2.5 py-1 text-[9px] font-mono rounded transition-all cursor-pointer", previewMode === "live" ? "bg-[#7C86FF] text-[#0B0B0F] font-bold" : "text-[#A1A1AA] hover:text-[#F5F5F5]")}
+                      >
+                        Live Frame
+                      </button>
+                    </div>
+                  )}
+                </div>
+                
+                {previewMode === "live" && project.links.live ? (
+                  <div className="relative w-full aspect-[16/9] bg-black rounded-xl border border-white/[0.06] overflow-hidden flex flex-col shadow-inner">
+                    {/* Mock Browser Header */}
+                    <div className="flex items-center justify-between bg-neutral-900 border-b border-white/[0.06] px-4 py-2 text-[10px] text-[#A1A1AA] font-mono select-none">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2.5 h-2.5 bg-red-500/80 rounded-full" />
+                        <div className="w-2.5 h-2.5 bg-yellow-500/80 rounded-full" />
+                        <div className="w-2.5 h-2.5 bg-green-500/80 rounded-full" />
+                      </div>
+                      <div className="bg-black/40 border border-white/[0.04] px-4 py-0.5 rounded text-[8px] text-[#7C86FF] w-[60%] text-center truncate">
+                        {project.links.live}
+                      </div>
+                      <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="hover:text-white flex items-center gap-0.5 text-[9px] text-[#7C86FF] font-semibold">
+                        <span>Open Link</span>
+                        <ArrowUpRight className="w-3 h-3" />
+                      </a>
+                    </div>
+                    {/* Embedded Frame */}
+                    <div className="flex-grow bg-[#1a1a24] relative">
+                      <iframe 
+                        src={project.links.live} 
+                        className="w-full h-full border-none" 
+                        title={project.title}
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  renderScreenshotShowcase(project.id)
+                )}
               </div>
 
               {/* Technical Architecture Pipeline */}
@@ -330,8 +478,8 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
               )}
             </div>
 
-            {/* Footer Buttons */}
-            <div className="flex items-center justify-end gap-3 mt-10 pt-6 border-t border-white/[0.06]">
+            {/* Sticky Footer Buttons */}
+            <div className="flex items-center justify-end gap-3 p-4 md:p-6 border-t border-white/[0.06] bg-[#0E0E14] shrink-0">
               {project.links.github && (
                 <a
                   href={project.links.github}

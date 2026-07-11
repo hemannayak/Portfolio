@@ -16,7 +16,7 @@ import { experienceData } from "@/constants/experience";
 import { projectsData } from "@/constants/projects";
 import { skillsData } from "@/constants/skills";
 import { leadershipData } from "@/constants/leadership";
-import { highlightedCertifications } from "@/constants/certifications";
+import { certificates } from "@/constants/certifications";
 import type { ResumeData, ResumeVariant, ResumeSkillGroup, ResumeProject, ResumeExperience } from "./types";
 
 // ─── Locked person info ───────────────────────────────────────────────────────
@@ -33,7 +33,7 @@ const PERSON = {
 
 // ─── Professional summary — keyword-dense, top of resume ─────────────────────
 const SUMMARY =
-  "Final-year BTech Computer Science (Data Science) student with hands-on NLP research experience at IIIT Hyderabad. Skilled in Python, machine learning, REST API development, and full-stack engineering. Strong analytical and problem-solving background with experience across data pipelines, backend systems, and collaborative team projects. Seeking roles in AI, Data Science, and Software Engineering.";
+  "4th-year BTech Computer Science (Data Science) student with hands-on NLP research experience at IIIT Hyderabad. Skilled in Python, machine learning, REST API development, and full-stack engineering. Strong analytical and problem-solving background with experience across data pipelines, backend systems, and collaborative team projects. Seeking roles in AI, Data Science, and Software Engineering.";
 
 // ─── Soft skills — fills the missing ATS section ─────────────────────────────
 const SOFT_SKILLS = [
@@ -54,21 +54,29 @@ function cleanDate(duration: string): string {
 // These replace the portfolio-narrative bullets with measurable, action-verb-led
 // bullets per the ATS report's "Measurable Result" flags.
 const BULLET_OVERRIDES: Record<string, string[]> = {
+  "nlp-research-iiith-onsite": [
+    "Conducting on-site speech processing research at LTRC, KCIS, extracting STFT and Linear Prediction features to model speech excitation and prosody parameters.",
+    "Developing deep learning models for speaker and emotion recognition using the SpeechBrain framework on large-scale acoustic datasets.",
+  ],
+  "callhealth-internship": [
+    "Co-developed the Flutter client-side UI and Dart application controllers for 'Prachtiz' (MVP 1), an AI clinical documentation system utilizing Deepgram Nova-3 Medical STT and GPT-4o.",
+    "Built Python FastAPI endpoints and ML models for Doctor Delay Prediction (ETA), AI Doctor Brief generation, and AI Queue Optimization, accelerating patient throughput.",
+  ],
   "nlp-research-iiith": [
-    "Designed feature alignment pipeline using Librosa to extract Mel-spectrogram audio features and align them with BERT text token sequences across 3 emotional speech corpora, enabling cross-modal fusion benchmarking.",
-    "Built and configured PyTorch training loops and HuggingFace fine-tuning pipelines, running systematic validation sweeps across 5+ hyperparameter configurations to compare early vs. late fusion strategies.",
+    "Developed VoiceScope India, a 6-accent classifier combining MFCCs and HuBERT Layer 9 embeddings to achieve 99.87% validation and 91.91% child test generalization.",
+    "Built a multimodal early-fusion emotion framework combining audio (CNN+BiLSTM+Attention) and text (DistilBERT) encoders on TESS, deployed with an interactive Streamlit app.",
   ],
   "ml-internship-edunet": [
-    "Developed regression pipelines in Python (Pandas, Scikit-Learn) to forecast EV station charging demand across regional locations, reducing prediction variance by improving feature engineering on temporal load data.",
-    "Generated exploratory data analysis reports and Matplotlib visualizations covering 10+ variables to surface demand patterns and support smart-grid resource scheduling decisions.",
+    "Built and deployed an interactive time-series forecasting dashboard in Streamlit predicting regional EV adoption growth over a 1-5 year horizon, integrated with downloadable CSV reports.",
+    "Engineered lag and rolling mean features and optimized a Random Forest Regressor to achieve a test RMSE of 0.06 and an R² of 1.00 on monthly registrations.",
   ],
   "nlp-internship-elevvo": [
-    "Cleaned, structured, and normalized 3+ raw textual training corpora using NLTK lemmatization and regex pipelines, reducing vocabulary noise and improving classifier baseline accuracy.",
-    "Tested vocabulary mappings and tuned baseline classifiers to optimize domain-specific NLP classification, establishing evaluation benchmarks used for model quality assessment.",
+    "Trained classical classifiers and custom deep learning models (MLP, Bidirectional LSTM) in Keras and Scikit-Learn to perform text classification and Named Entity Recognition (NER) with up to 96.8% token accuracy.",
+    "Engineered text pre-processing and vectorization pipelines (TF-IDF, Bag-of-Words) in Python, achieving 99.6% accuracy on a 44.8K sample dataset for misinformation detection.",
   ],
   "data-trainee": [
-    "Analyzed structured business datasets using Excel pivot tables and SQL queries, producing executive dashboards that surfaced KPI trends across operational performance metrics.",
-    "Collaborated on data auditing tasks to identify and resolve inconsistencies across database records, improving catalog integrity for downstream analytics workflows.",
+    "Developed interactive Power BI dashboards detailing CTR, CPC, and ad spend metrics for 33 campaigns of Globalshala's Superhero U initiative, identifying highest ROI demographic targets.",
+    "Analyzed campaign dataset to flag ₹5.9K in misaligned spend across out-of-target age segments (13-17 and 25-34), recommending budget reallocations to optimize CPC (₹5.68).",
   ],
 };
 
@@ -82,9 +90,21 @@ const RESUME_PROJECT_IDS = [
 
 // ATS-safe project bullet overrides (tight, measurable, action-verb led)
 const PROJECT_BULLET_OVERRIDES: Record<string, string[]> = {
+  "viala": [
+    "Developed Viala, a circular pharmacy platform enforcing FEFO inventory safety zones (Green, Yellow, Red, Black) with automated re-allocation workflows.",
+    "Integrated Tesseract.js OCR and Gemini Pro to parse drug packaging inputs, recover up to 30% manufacturer returns, and automate NGO rescue donations."
+  ],
+  "minds-club": [
+    "Designed a high-fidelity glassmorphic web platform for HITAM's Data Science Society (MINDS) using Vite, React 19, and Framer Motion.",
+    "Built an Express.js API onboarding pipeline that records members to MongoDB Atlas, appends rows to Google Sheets, and triggers Nodemailer email templates."
+  ],
+  "ayushalert": [
+    "Developed AyushAlert, a consent-driven health gateway and outbreak analytics app using Next.js 16, Tailwind v4, MongoDB, Nodemailer OTP, and Leaflet mapping.",
+    "Integrated Tesseract.js and Gemini Vision API to convert scanned medical documents into FHIR R4 JSON format, and built an anonymization broker to map regional outbreak alerts."
+  ],
   "multimodal-emotion-recognition": [
-    "Architected an early-fusion deep learning framework at IIIT Hyderabad combining Librosa Mel-spectrogram audio features with HuggingFace BERT text embeddings using cross-attention layers for emotion classification.",
-    "Built an interactive inference pipeline enabling systematic benchmarking of early vs. late fusion strategies across multiple emotional speech corpora, validating alignment correctness across modalities.",
+    "Developed a multimodal speech/text emotion recognition framework combining audio (CNN+BiLSTM+Attention on MFCCs) and text (DistilBERT) encoders in PyTorch.",
+    "Achieved 100.00% validation accuracy on speech and fusion models using TESS, and created a Streamlit demo for real-time inference and embedding visualizations."
   ],
   "moodmate": [
     "Developed a full-stack journaling application with React frontend, Spring Boot REST API backend, stateless JWT authentication, and MongoDB document storage — deployed with full CRUD operations and session management.",
@@ -95,9 +115,13 @@ const PROJECT_BULLET_OVERRIDES: Record<string, string[]> = {
     "Introduced API versioning conventions and shared migration strategy that allowed independent parallel development across team members without breaking interface contracts.",
   ],
   "ev-charge-demand": [
-    "Built a Scikit-Learn regression pipeline during AICTE-Edunet internship to forecast EV charging station demand using spatial and temporal feature engineering on real station datasets.",
-    "Conducted full EDA with Pandas and Matplotlib, applied forward-fill temporal imputation to handle missing timestamps, and generated smart-grid load forecasting reports for scheduling decisions.",
+    "Developed and deployed a Streamlit time-series forecasting dashboard to predict regional EV adoption growth over 1-5 years, utilizing lag features and linear growth trajectories.",
+    "Trained a Random Forest Regressor in Scikit-Learn achieving an RMSE of 0.06 and an R² of 1.00, enabling side-by-side county comparisons and downloadable CSV data exports.",
   ],
+  "globalshala-analytics": [
+    "Constructed Power BI dashboards tracking CTR, CPC, and ad spend across multiple geographical regions to monitor global Superhero U campaigns.",
+    "Analyzed performance data via SQL/Excel, identifying ₹5.9K in low-performing ad spend and recommending budget reallocation strategies."
+  ]
 };
 
 function buildProjects(): ResumeProject[] {
@@ -131,19 +155,19 @@ function buildSkillGroups(): ResumeSkillGroup[] {
   return [
     {
       label: "Languages",
-      items: map["Programming Languages"] ?? ["Python", "Java", "JavaScript", "SQL"],
+      items: map["Programming Languages (Learning)"] ?? ["Python", "Java", "C", "SQL"],
     },
     {
       label: "Frameworks & Libraries",
-      items: ["React", "Spring Boot", "Hugging Face Transformers", "PyTorch", "Scikit-Learn", "Pandas", "NumPy", "NLTK", "Django"],
+      items: ["React Basics", "TypeScript", "Next.js", "Spring Boot (Basics)", "Hugging Face", "Scikit-Learn Basics", "Pandas", "NumPy", "Librosa"],
     },
     {
       label: "ML & NLP",
-      items: ["Machine Learning", "NLP", "BERT", "Transformers", "Librosa", "Speech Processing", "Data Analysis", "REST APIs"],
+      items: ["Machine Learning Basics", "NLP", "BERT", "Speech Processing", "Text Processing", "Tokenization"],
     },
     {
-      label: "Tools & Databases",
-      items: ["Git", "GitHub", "PostgreSQL", "MongoDB", "MySQL", "Postman", "Jupyter Notebook", "VS Code", "Power BI"],
+      label: "Tools, Databases & AI IDEs",
+      items: ["GitHub", "VS Code", "Jupyter Notebook", "MongoDB", "MySQL", "Supabase", "Antigravity", "Windsurf", "Cursor"],
     },
   ];
 }
@@ -173,7 +197,7 @@ export function generateResumeData(variant: ResumeVariant = "general"): ResumeDa
       field: "Computer Science Engineering — Data Science",
       institution: "Hyderabad Institute of Technology and Management (HITAM)",
       location: "Hyderabad, India",
-      period: "2022 – 2026",
+      period: "2023 – 2027",
       cgpa: "8.5+",
       highlights: [
         "Relevant Coursework: Deep Learning, NLP, Probability & Statistics, Algorithms, DBMS, Big Data Analytics",
@@ -200,7 +224,7 @@ export function generateResumeData(variant: ResumeVariant = "general"): ResumeDa
       },
     ],
 
-    certifications: highlightedCertifications.slice(0, 3).map((c) => ({
+    certifications: certificates.slice(0, 3).map((c) => ({
       title: c.title,
       issuer: c.issuer,
       date: c.date,

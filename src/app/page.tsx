@@ -10,10 +10,10 @@ import { Experience } from "@/components/sections/Experience";
 import { Skills } from "@/components/sections/Skills";
 import { Leadership } from "@/components/sections/Leadership";
 import { Education } from "@/components/sections/Education";
-import { ProfessionalPresence } from "@/components/sections/ProfessionalPresence";
+
 import { About } from "@/components/sections/About";
 import { Certifications } from "@/components/sections/Certifications";
-import { Achievements } from "@/components/sections/Achievements";
+
 import { Contact } from "@/components/sections/Contact";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -39,14 +39,12 @@ export default function Home() {
         return <Leadership />;
       case "education":
         return <Education />;
-      case "presence":
-        return <ProfessionalPresence />;
+
       case "about":
         return <About />;
       case "certifications":
         return <Certifications />;
-      case "achievements":
-        return <Achievements />;
+
       case "contact":
         return <Contact />;
       default:

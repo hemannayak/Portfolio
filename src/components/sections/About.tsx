@@ -20,10 +20,8 @@ const quickFacts = [
   { label: "Degree", value: "BTech CSE (Data Science)" },
   { label: "Institution", value: "HITAM, Hyderabad" },
   { label: "Current Role", value: "NLP Research Intern, IIITH" },
-  { label: "Born", value: "31 August 2005" },
   { label: "City", value: "Hyderabad" },
   { label: "Email", value: "hemanthnayakpangoth@gmail.com" },
-  { label: "Phone", value: "+91 8328232607" },
 ];
 
 export function About() {
@@ -60,7 +58,7 @@ export function About() {
 
             <FadeIn delay={0.25}>
               <p className="text-sm text-[#A1A1AA] leading-[1.85] tracking-wide text-center md:text-left">
-                When I'm not doing research, I build full-stack systems using HTML, Django, and modern backend APIs. I consider myself a "vibe coder" — leveraging AI tools to rapidly build end-to-end working websites and bring ideas to life. I also led a 900-student governance body for close to a year, which taught me more about communication than most technical projects have.
+                When I'm not doing research, I build full-stack systems using HTML, Django, and modern backend APIs. I focus on rapid prototyping and practical implementation — leveraging AI-assisted development workflows to design and build end-to-end applications efficiently. I also led a 900-student governance body for close to a year, which taught me more about communication than most technical projects have.
               </p>
             </FadeIn>
 

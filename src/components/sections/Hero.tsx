@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, FileText, ArrowUpRight } from "lucide-react";
+import { ArrowDown, FileText, Download, Loader2 } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { generateResumeData } from "@/lib/resume/generator";
+import { applyTailoring } from "@/lib/resume/tailoring";
 import Image from "next/image";
-import Link from "next/link";
 const roles = [
   "NLP Research Intern",
   "Data Science Student",
@@ -39,6 +40,45 @@ function RoleRotator() {
         </motion.span>
       </AnimatePresence>
     </div>
+  );
+}
+
+function DownloadResumeButton() {
+  const [state, setState] = useState<"idle" | "loading" | "done">("idle");
+
+  const handleDownload = useCallback(async () => {
+    if (state === "loading") return;
+    setState("loading");
+    try {
+      const raw = generateResumeData("general");
+      const tailored = applyTailoring(raw);
+      const { downloadResumePDF } = await import("@/lib/resume/exporters/pdf-exporter");
+      await downloadResumePDF(tailored);
+      setState("done");
+      setTimeout(() => setState("idle"), 2500);
+    } catch (err) {
+      console.error("PDF export failed:", err);
+      setState("idle");
+    }
+  }, [state]);
+
+  return (
+    <button
+      onClick={handleDownload}
+      disabled={state === "loading"}
+      className="flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold border border-white/10 bg-white/[0.01] hover:bg-white/5 hover:scale-[1.01] text-[#F5F5F5] transition-all duration-300 shadow-sm group cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+    >
+      {state === "loading" ? (
+        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+      ) : state === "done" ? (
+        <FileText className="w-3.5 h-3.5 text-emerald-400" />
+      ) : (
+        <Download className="w-3.5 h-3.5" />
+      )}
+      <span>
+        {state === "loading" ? "Generating..." : state === "done" ? "Downloaded ✓" : "Download Resume"}
+      </span>
+    </button>
   );
 }
 
@@ -90,16 +130,7 @@ export function Hero() {
               <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform text-[#0B0B0F]" />
             </a>
 
-            <Link
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold border border-white/10 bg-white/[0.01] hover:bg-white/5 hover:scale-[1.01] text-[#F5F5F5] transition-all duration-300 shadow-sm group cursor-pointer"
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>Download Resume</span>
-              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-[#A1A1AA]" />
-            </Link>
+            <DownloadResumeButton />
           </FadeIn>
         </div>
 

@@ -15,7 +15,6 @@ const categories = [
   "Full Stack Development",
   "Data Analytics",
   "Research Engineering",
-  "AI-Assisted Development",
   "Collaborative & Academic"
 ];
 
@@ -48,11 +47,11 @@ export function ProjectsSection() {
           </span>
           
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#FAFAFA] mb-4">
-            Selected Engineering Projects
+            Academic, Internship & Hackathon Projects
           </h2>
           
           <p className="text-xs md:text-sm text-[#A1A1AA] max-w-2xl leading-relaxed">
-            AI, NLP, Data Science, Full Stack, and research-oriented systems built to solve practical real-world problems. Focus is placed on scalability, math model soundness, and clean design.
+            A showcase of deep learning research, full-stack systems, and data models engineered during professional internships (IIIT Hyderabad, CallHealth, Edunet, Excelerate), hackathons (SIH), and core academic coursework.
           </p>
         </FadeIn>
 
@@ -79,38 +78,77 @@ export function ProjectsSection() {
           </div>
         </FadeIn>
 
-        {/* Dynamic Empty State if filter yields no elements */}
-        {filteredProjects.length === 0 && (
-          <FadeIn delay={0.2} className="text-center py-12 border border-dashed border-white/10 rounded-2xl">
-            <p className="text-xs text-[#A1A1AA] font-mono">
-              No matching diagnostic models compiled under this category yet.
-            </p>
-          </FadeIn>
-        )}
+        {/* Projects Render Area */}
+        {activeCategory === "All" ? (
+          <div className="space-y-16">
+            {categories.slice(1).map((category) => {
+              const categoryProjects = projectsData.filter((p) => p.category === category);
+              if (categoryProjects.length === 0) return null;
 
-        {/* Featured Projects Stack */}
-        {featuredProjects.length > 0 && (
-          <div className="space-y-12 mb-16">
-            {featuredProjects.map((project, idx) => (
-              <FadeIn key={project.id} delay={0.2 + idx * 0.05}>
-                <FeaturedProjectCard project={project} onOpenDetails={handleOpenDetails} />
-              </FadeIn>
-            ))}
+              const featProjs = categoryProjects.filter((p) => p.featured);
+              const secProjs = categoryProjects.filter((p) => !p.featured);
+
+              return (
+                <div key={category} className="space-y-8">
+                  {/* Category Header */}
+                  <FadeIn delay={0.1} className="flex items-center gap-2 border-b border-white/[0.04] pb-3">
+                    <span className="w-1.5 h-1.5 bg-[#7C86FF] rounded-full shadow-[0_0_8px_#7C86FF]" />
+                    <h3 className="text-xs font-mono tracking-widest text-[#FAFAFA] uppercase font-bold">
+                      {category}
+                    </h3>
+                    <span className="text-[10px] font-mono text-[#A1A1AA] opacity-50 ml-auto">
+                      {categoryProjects.length} {categoryProjects.length === 1 ? "Project" : "Projects"}
+                    </span>
+                  </FadeIn>
+
+                  {/* Featured Category Projects Stack */}
+                  {featProjs.length > 0 && (
+                    <div className="space-y-8">
+                      {featProjs.map((project, idx) => (
+                        <FadeIn key={project.id} delay={0.15 + idx * 0.05}>
+                          <FeaturedProjectCard project={project} onOpenDetails={handleOpenDetails} />
+                        </FadeIn>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Secondary Category Projects Grid */}
+                  {secProjs.length > 0 && (
+                    <ProjectGrid projects={secProjs} onOpenDetails={handleOpenDetails} />
+                  )}
+                </div>
+              );
+            })}
           </div>
-        )}
+        ) : (
+          <div className="space-y-16">
+            {/* Dynamic Empty State if filter yields no elements */}
+            {filteredProjects.length === 0 && (
+              <FadeIn delay={0.2} className="text-center py-12 border border-dashed border-white/10 rounded-2xl">
+                <p className="text-xs text-[#A1A1AA] font-mono">
+                  No matching diagnostic models compiled under this category yet.
+                </p>
+              </FadeIn>
+            )}
 
-        {/* Divider / Secondary Title */}
-        {secondaryProjects.length > 0 && (
-          <FadeIn delay={0.25} className="mb-8 pt-8 border-t border-white/5">
-            <h3 className="text-xs font-mono tracking-widest text-[#A1A1AA] uppercase font-semibold">
-              Diagnostic Labs & Core Modules
-            </h3>
-          </FadeIn>
-        )}
+            {/* Featured Projects Stack */}
+            {featuredProjects.length > 0 && (
+              <div className="space-y-8">
+                {featuredProjects.map((project, idx) => (
+                  <FadeIn key={project.id} delay={0.2 + idx * 0.05}>
+                    <FeaturedProjectCard project={project} onOpenDetails={handleOpenDetails} />
+                  </FadeIn>
+                ))}
+              </div>
+            )}
 
-        {/* Secondary Projects Grid */}
-        {secondaryProjects.length > 0 && (
-          <ProjectGrid projects={secondaryProjects} onOpenDetails={handleOpenDetails} />
+            {/* Secondary Projects Grid */}
+            {secondaryProjects.length > 0 && (
+              <div className="pt-8 border-t border-white/5">
+                <ProjectGrid projects={secondaryProjects} onOpenDetails={handleOpenDetails} />
+              </div>
+            )}
+          </div>
         )}
 
         {/* Rich Case Study Deep Dive Modal */}

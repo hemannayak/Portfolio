@@ -3,12 +3,8 @@
 import { GlassCard } from "@/components/common/GlassCard";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { StaggerContainer, StaggerItem } from "@/components/animations/Reveal";
-import { TrendingUp, FlaskConical, Users, BookOpen, Award } from "lucide-react";
+import { FlaskConical, Users, BookOpen } from "lucide-react";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Achievements — curated, defensible, grounded
-// Each one must be interview-answerable. No inflated claims.
-// ─────────────────────────────────────────────────────────────────────────────
 interface Achievement {
   id: string;
   title: string;
@@ -21,38 +17,20 @@ interface Achievement {
 const achievementsData: Achievement[] = [
   {
     id: "iiith-internship",
-    title: "IIIT Hyderabad Research Internship",
-    context: "Research Selection · NLP Lab",
+    title: "IIIT Hyderabad Research Internship — Selected",
+    context: "Research Selection · LTRC NLP Lab",
     description:
-      "Selected for a research internship at IIIT Hyderabad working on multimodal emotion recognition — fusing audio spectrogram and BERT-based text features using cross-attention layers.",
-    represents: "Research exposure at a premier institution, working on real NLP systems.",
+      "Selected for two consecutive research internships at IIIT Hyderabad — Phase 1 & 2 (Oct 2025–May 2026) on multimodal emotion recognition, and Phase 3 (Jun–Oct 2026) at the Language Technologies Research Centre working on speech signal processing fundamentals.",
+    represents: "Research exposure at a premier institution across two programme cycles — working on real NLP and speech systems.",
     icon: FlaskConical,
   },
   {
-    id: "aspire-leaders",
-    title: "Aspire Leaders Program Fellow",
-    context: "Leadership Fellowship · Global Program",
-    description:
-      "Selected as a fellow for the Aspire Leaders Program — a competitive cohort-based leadership development initiative for high-potential students from emerging market universities.",
-    represents: "External validation of leadership potential and initiative beyond academics.",
-    icon: Award,
-  },
-  {
-    id: "ssg-progression",
-    title: "Student Governance — 3-Level Progression",
-    context: "HITAM · Student Self Governance",
-    description:
-      "Progressed through three consecutive roles: Student Coordinator (Aug 2024), Student HOD (May 2025), and Student Dean Freshmen (Apr 2026) — each with increasing scope and responsibility over a 900-student department.",
-    represents: "Consistent ownership, trust from peers and faculty, and year-over-year progression.",
-    icon: TrendingUp,
-  },
-  {
     id: "levelup-pbl",
-    title: "LevelUp Learning — PBL Lead",
+    title: "LevelUp Learning — Backend PBL Lead",
     context: "Project-Based Learning · 2-Semester Capstone",
     description:
       "Led backend architecture for a multi-user learning platform over two academic semesters. Responsible for API design, PostgreSQL schema, and authentication implementation across a 4-person team.",
-    represents: "Technical leadership, system thinking, and sustained project ownership.",
+    represents: "Technical leadership, system thinking, and sustained project ownership over a full academic year.",
     icon: BookOpen,
   },
   {
@@ -61,7 +39,7 @@ const achievementsData: Achievement[] = [
     context: "National Hackathon · Government of India",
     description:
       "Contributed to a team submission for the Smart India Hackathon building a cultural heritage web platform — navigating ideation, rapid prototyping, and formal submission under tight time constraints.",
-    represents: "Collaborative problem solving, initiative, and building under pressure.",
+    represents: "Collaborative problem solving, initiative, and building under pressure at a national level.",
     icon: Users,
   },
 ];
@@ -85,7 +63,7 @@ export function Achievements() {
           </p>
         </FadeIn>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {achievementsData.map((item) => {
             const Icon = item.icon;
             return (

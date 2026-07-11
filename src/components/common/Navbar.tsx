@@ -4,8 +4,7 @@ import { useState } from "react";
 import { navItems } from "@/constants/nav";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { cn } from "@/utils/cn";
-import { Menu, X, ArrowUpRight, FileDown } from "lucide-react";
-import { ResumeModal } from "@/components/resume/ResumeModal";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 
 interface NavbarProps {
   activeSection: string;
@@ -15,7 +14,6 @@ interface NavbarProps {
 export function Navbar({ activeSection, setActiveSection }: NavbarProps) {
   const scrollDirection = useScrollDirection();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [resumeOpen, setResumeOpen] = useState(false);
 
   const handleNavClick = (href: string) => {
     const section = href.replace("#", "");
@@ -85,14 +83,6 @@ export function Navbar({ activeSection, setActiveSection }: NavbarProps) {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-2">
-          {/* ATS Resume button */}
-          <button
-            onClick={() => setResumeOpen(true)}
-            className="flex items-center gap-1 px-3.5 py-1.5 rounded-full text-[10px] lg:text-xs font-medium border border-white/[0.08] text-[#A1A1AA] hover:text-[#F5F5F5] hover:border-[#7C86FF]/30 transition-all duration-200"
-          >
-            <FileDown className="w-3 h-3" />
-            <span>Resume</span>
-          </button>
           <button
             onClick={() => handleNavClick("#contact")}
             className="flex items-center gap-1 px-3.5 py-1.5 rounded-full text-[10px] lg:text-xs font-semibold bg-[#7C86FF] hover:bg-[#7C86FF]/95 text-[#0B0B0F] transition-all duration-300 shadow-md group"
@@ -138,19 +128,9 @@ export function Navbar({ activeSection, setActiveSection }: NavbarProps) {
               <span>Connect</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
-            <button
-              onClick={() => { setMobileMenuOpen(false); setResumeOpen(true); }}
-              className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium border border-white/[0.10] text-[#A1A1AA]"
-            >
-              <FileDown className="w-3.5 h-3.5" />
-              <span>ATS Resume</span>
-            </button>
           </nav>
         </div>
       )}
-
-      {/* Resume Modal — rendered outside the fixed header */}
-      <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
     </header>
   );
 }

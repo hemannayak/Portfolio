@@ -1,124 +1,107 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Certifications Data — Two-Tier Structure
-// Tier 1: Highlighted credentials (fellowships, job simulations, specializations)
-// Tier 2: Compact learning records (short courses, LinkedIn Learning, micro-certs)
+// Certifications — Single unified list, only real verified credentials
 // ─────────────────────────────────────────────────────────────────────────────
 
-export interface HighlightedCertification {
+export interface Certificate {
   id: string;
   title: string;
   issuer: string;
   date: string;
-  type: "fellowship" | "job-simulation" | "specialization" | "course";
-  tags: string[];
-  verificationUrl?: string;
+  type: "fellowship" | "job-simulation" | "certification" | "course" | "workshop";
   description: string;
+  skills: string[];
+  certificateUrl: string;
+  letterUrl?: string;
 }
 
-export interface CompactLearning {
-  id: string;
-  title: string;
-  issuer: string;
-  date: string;
-  type: "micro-course" | "workshop" | "training";
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// TIER 1: Highlighted Credentials
-// Recruiters read these. Must be defensible in an interview.
-// ─────────────────────────────────────────────────────────────────────────────
-export const highlightedCertifications: HighlightedCertification[] = [
+export const certificates: Certificate[] = [
   {
-    id: "microsoft-ai-fellowship",
-    title: "AI Skills Fellowship",
-    issuer: "Microsoft & Edunet Foundation",
-    date: "Mar 2025",
+    id: "aspire-leaders",
+    title: "Aspire Leaders Program 2025",
+    issuer: "Aspire Institute (Founded at Harvard University)",
+    date: "Oct 2025",
     type: "fellowship",
     description:
-      "Selective 6-week fellowship on applied AI and responsible ML. Covered Azure AI services, real-world deployment patterns, and ethics in production ML systems.",
-    tags: ["Azure AI", "Responsible ML", "Deployment", "Python"],
-    verificationUrl: "https://edunetfoundation.org",
+      "Successfully completed a global leadership development program focused on leadership, communication, critical thinking, collaboration, and creating social impact through real-world learning experiences.",
+    skills: ["Leadership", "Critical Thinking", "Communication", "Teamwork", "Global Collaboration", "Decision Making", "Social Impact", "Personal Development"],
+    certificateUrl: "https://drive.google.com/file/d/1qyZpZ79jdthcECzcJAbmsLXrSgj708VS/view?usp=sharing",
+    letterUrl: "https://drive.google.com/file/d/1qyZpZ79jdthcECzcJAbmsLXrSgj708VS/view?usp=sharing",
   },
   {
-    id: "bcg-data-science-sim",
-    title: "Data Science Job Simulation",
-    issuer: "BCG × Forage",
-    date: "Jan 2025",
+    id: "deloitte-data-analytics",
+    title: "Data Analytics Job Simulation",
+    issuer: "Deloitte Australia × Forage",
+    date: "Jun 2025",
     type: "job-simulation",
     description:
-      "Simulated a real BCG consulting engagement: performed churn analysis using Random Forest on a client dataset, and delivered an executive-facing insight summary.",
-    tags: ["Random Forest", "Churn Analysis", "Python", "Pandas"],
-    verificationUrl: "https://www.theforage.com",
+      "Completed a virtual job simulation involving practical business data analysis, forensic technology tasks, data interpretation, and insight generation to solve real-world business problems.",
+    skills: ["Data Analytics", "Excel", "Data Cleaning", "Data Visualization", "Business Analysis", "Critical Thinking", "Forensic Technology"],
+    certificateUrl: "https://drive.google.com/file/d/1kEcAPN2jIYztFtJXwg5QtwTLTLtrxUOR/view?usp=sharing",
   },
   {
-    id: "accenture-data-analytics-sim",
-    title: "Data Analytics & Visualization Job Simulation",
+    id: "accenture-tech-apprenticeship",
+    title: "Introduction to Technology Apprenticeship Job Simulation",
     issuer: "Accenture × Forage",
-    date: "Dec 2024",
+    date: "Jun 2025",
     type: "job-simulation",
     description:
-      "Completed a full analytics lifecycle: data cleaning, exploratory analysis, and storytelling-ready visualization decks presented as a client-facing deliverable.",
-    tags: ["EDA", "Data Cleaning", "Visualization", "Storytelling"],
-    verificationUrl: "https://www.theforage.com",
+      "Completed a virtual technology apprenticeship simulation focused on consulting workflows, digital transformation, technology strategy, and business process improvement.",
+    skills: ["Technology Consulting", "Digital Transformation", "Business Process Analysis", "Problem Solving", "Communication", "Stakeholder Management"],
+    certificateUrl: "https://drive.google.com/file/d/1pga9TUe7z8UNoKxsZ3UmTW9zm4U7XX6R/view?usp=sharing",
   },
   {
-    id: "infosys-springboard-ml",
-    title: "Introduction to Machine Learning",
-    issuer: "Infosys Springboard",
-    date: "Oct 2024",
-    type: "course",
+    id: "pcap-python",
+    title: "PCAP – Programming Essentials in Python",
+    issuer: "Cisco Networking Academy × OpenEDG Python Institute",
+    date: "Sep 2024",
+    type: "certification",
     description:
-      "Grounded review of foundational ML principles: supervised/unsupervised learning, model evaluation, and bias-variance tradeoff. Backed by Infosys curriculum.",
-    tags: ["Supervised Learning", "Model Evaluation", "Scikit-Learn"],
-    verificationUrl: "https://infosysspringboard.com",
+      "Successfully completed an industry-recognized Python certification covering programming fundamentals, object-oriented programming, modules, exception handling, file processing, and algorithm implementation.",
+    skills: ["Python", "OOP", "Functions", "Exception Handling", "Modules", "Packages", "File Handling", "Iterators", "Generators", "Algorithms"],
+    certificateUrl: "https://drive.google.com/file/d/1gPuRErD3HHtUIkvz24fSB22lED48PqXr/view?usp=sharing",
   },
-];
-
-// ─────────────────────────────────────────────────────────────────────────────
-// TIER 2: Compact Learning Records
-// Shows curiosity and breadth. Rendered smaller — supporting evidence.
-// ─────────────────────────────────────────────────────────────────────────────
-export const compactLearningData: CompactLearning[] = [
   {
     id: "be10x-ai-tools",
-    title: "AI Tools Masterclass",
-    issuer: "Be10x",
-    date: "Nov 2024",
+    title: "AI Tools Workshop",
+    issuer: "be10x",
+    date: "Mar 2024",
     type: "workshop",
+    description:
+      "Completed a hands-on AI workshop exploring Generative AI applications, prompt engineering, AI productivity tools, and workflow automation for professional use.",
+    skills: ["Generative AI", "Prompt Engineering", "AI Tools", "Productivity Automation", "Workflow Optimization"],
+    certificateUrl: "https://drive.google.com/file/d/1IntSOj7w4QtKZU7HZcvZaufG0O0FOkVH/view?usp=sharing",
   },
   {
-    id: "linkedin-python-ds",
-    title: "Python for Data Science",
+    id: "css-fundamentals",
+    title: "CSS Fundamentals: Unlock the Power of Web Styling",
     issuer: "LinkedIn Learning",
-    date: "Sep 2024",
-    type: "micro-course",
+    date: "Feb 2025",
+    type: "course",
+    description:
+      "Completed a CSS fundamentals course focused on responsive web design, modern layouts, typography, Flexbox, Grid, and professional web styling techniques.",
+    skills: ["CSS3", "Flexbox", "CSS Grid", "Responsive Design", "Box Model", "Selectors", "Typography", "Layout Design"],
+    certificateUrl: "https://drive.google.com/file/d/1QpV7ftaING8HKZJI5qdt5-ExurKFDcYI/view?usp=sharing",
   },
   {
-    id: "linkedin-sql-essentials",
-    title: "SQL Essential Training",
+    id: "programming-in-c",
+    title: "Programming in C",
+    issuer: "Infosys Springboard",
+    date: "Jan 2024",
+    type: "course",
+    description:
+      "Completed a foundational programming course covering procedural programming concepts, algorithms, functions, arrays, pointers, memory management, and debugging.",
+    skills: ["C Programming", "Algorithms", "Arrays", "Pointers", "Functions", "Loops", "Memory Management", "Problem Solving"],
+    certificateUrl: "https://drive.google.com/file/d/1gPuRErD3HHtUIkvz24fSB22lED48PqXr/view?usp=sharing",
+  },
+  {
+    id: "html-essential-training",
+    title: "HTML Essential Training (2020)",
     issuer: "LinkedIn Learning",
-    date: "Aug 2024",
-    type: "micro-course",
-  },
-  {
-    id: "linkedin-nlp-intro",
-    title: "NLP with Python",
-    issuer: "LinkedIn Learning",
-    date: "Jul 2024",
-    type: "micro-course",
-  },
-  {
-    id: "google-data-analytics",
-    title: "Data Analytics Fundamentals",
-    issuer: "Google (Coursera)",
-    date: "Jun 2024",
-    type: "micro-course",
-  },
-  {
-    id: "kaggle-pandas",
-    title: "Pandas (Micro-Course)",
-    issuer: "Kaggle Learn",
-    date: "May 2024",
-    type: "micro-course",
+    date: "2020",
+    type: "course",
+    description:
+      "Completed a comprehensive HTML fundamentals course covering semantic HTML5, page structure, forms, tables, hyperlinks, accessibility, and web development best practices.",
+    skills: ["HTML5", "Semantic HTML", "Forms", "Tables", "Hyperlinks", "Web Page Structure", "Accessibility", "Web Development"],
+    certificateUrl: "https://drive.google.com/file/d/16ZweTheVa31rC1JoI4uYJUkSiKojn7uY/view?usp=sharing",
   },
 ];

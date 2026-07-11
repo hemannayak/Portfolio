@@ -3,7 +3,7 @@
 import { GlassCard } from "@/components/common/GlassCard";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { GithubIcon, LinkedinIcon } from "@/components/common/Icons";
-import { ArrowUpRight, CheckCircle2, Flame, GitFork, Star, BookOpen } from "lucide-react";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 
 interface LinkedInPost {
   category: "Research" | "Projects" | "Growth" | "Leadership" | "Reflections";
@@ -16,9 +16,8 @@ interface LinkedInPost {
 interface GitHubRepo {
   name: string;
   description: string;
-  stars: number;
-  forks: number;
   language: string;
+  link: string;
 }
 
 const linkedinPosts: LinkedInPost[] = [
@@ -26,46 +25,57 @@ const linkedinPosts: LinkedInPost[] = [
     category: "Research",
     title: "NLP & Speech Processing @ IIIT Hyderabad",
     date: "IIIT Hyderabad Research",
-    excerpt: "Reflecting on NLP research and speech processing internships at IIIT Hyderabad. Developing early early-fusion model architectures, acoustic spectrogram tokenization, and context-window optimization benchmarks for high-performance deep learning validations.",
-    link: "https://www.linkedin.com/posts/phemanthnayak_iiith-nlp-speechprocessing-activity-7449371568893489152-kfA0"
+    excerpt:
+      "Reflecting on NLP research and speech processing internships at IIIT Hyderabad. Developing early-fusion model architectures, acoustic spectrogram tokenization, and context-window optimization benchmarks for high-performance deep learning validations.",
+    link: "https://www.linkedin.com/posts/phemanthnayak_iiith-nlp-speechprocessing-activity-7449371568893489152-kfA0",
   },
   {
     category: "Leadership",
     title: "Student Leadership & Coordination @ HITAM SSG",
     date: "HITAM SSG Leadership",
-    excerpt: "Reflections on student leadership and coordinating collegiate developer networks with HITAM SSG. Managing event pipelines, engineering club timelines, and building collaborative team structures to nurture developer communities.",
-    link: "https://www.linkedin.com/posts/phemanthnayak_ssg-hitam-studentleadership-activity-7459266170387566592-LMS_"
+    excerpt:
+      "Reflections on student leadership and coordinating collegiate developer networks with HITAM SSG. Managing event pipelines, engineering club timelines, and building collaborative team structures to nurture developer communities.",
+    link: "https://www.linkedin.com/posts/phemanthnayak_ssg-hitam-studentleadership-activity-7459266170387566592-LMS_",
   },
   {
     category: "Projects",
     title: "Cloud Architectures & Google Cloud Communities",
     date: "Google Cloud & GDG",
-    excerpt: "Insights on cloud computing environments, GDG hubs, and scaling distributed computational pipelines. Deploying Google Cloud infrastructure and managing high-availability server networks for predictive data systems.",
-    link: "https://www.linkedin.com/posts/phemanthnayak_googlecloud-gdg-cloudcomputing-activity-7460672222752509952-uouR"
-  }
+    excerpt:
+      "Insights on cloud computing environments, GDG hubs, and scaling distributed computational pipelines. Deploying Google Cloud infrastructure and managing high-availability server networks for predictive data systems.",
+    link: "https://www.linkedin.com/posts/phemanthnayak_googlecloud-gdg-cloudcomputing-activity-7460672222752509952-uouR",
+  },
 ];
 
 const githubRepos: GitHubRepo[] = [
   {
-    name: "IIITH_RAP_Multimodal_Emotion_Recognition",
-    description: "Multimodal Emotion Recognition research framework aligning audio spectrograms, vocal signals, and BERT embeddings using early cross-attention blocks.",
-    stars: 5,
-    forks: 1,
-    language: "PyTorch / Python"
+    name: "TransitOS",
+    description:
+      "Enterprise-grade school transit automation portal — fuzzy payment reconciliation (Levenshtein), WhatsApp PDF receipt dispatch via Baileys, and node-cron billing pipelines.",
+    language: "TypeScript / Next.js / Express",
+    link: "https://github.com/heyyhemannn/TransitOS",
   },
   {
-    name: "vidyamitra-sahaya-ai",
-    description: "Intelligent academic adviser and student-focused institutional assistance portal utilizing advanced predictive analytical pipelines.",
-    stars: 4,
-    forks: 2,
-    language: "TypeScript / Next.js"
-  }
-];
-
-const githubActivity = [
-  { date: "2 days ago", event: "Pushed custom early-fusion spectrogram hooks to IIITH_RAP repository" },
-  { date: "1 week ago", event: "Refined training parameters and seed models inside IIITH_NLP_Internship" },
-  { date: "2 weeks ago", event: "Merged UI layouts and routing paths inside vidyamitra-sahaya-ai portal" }
+    name: "Viala",
+    description:
+      "Circular pharmacy intelligence platform with FEFO inventory management, OCR-powered expiry scanning, and real-time redistribution marketplace for retail pharmacies.",
+    language: "Next.js / Prisma / PostgreSQL",
+    link: "https://github.com/hemannayak/Viala",
+  },
+  {
+    name: "AyushAlert",
+    description:
+      "Privacy-first, consent-gated healthcare records platform with regional outbreak analytics, FHIR-compatible data structures, and Leaflet-based outbreak mapping.",
+    language: "Next.js / MongoDB / Leaflet",
+    link: "https://github.com/hemannayak/ayushalert",
+  },
+  {
+    name: "IIITH_RAP_Multimodal_Emotion_Recognition",
+    description:
+      "Multimodal emotion recognition framework fusing CNN+BiLSTM acoustic features with DistilBERT text encoders via early cross-attention. 91.7% F1 on TESS dataset.",
+    language: "PyTorch / Python / Streamlit",
+    link: "https://github.com/hemannayak/IIITH_RAP_Multimodal_Emotion_Recognition",
+  },
 ];
 
 export function ProfessionalPresence() {
@@ -80,21 +90,24 @@ export function ProfessionalPresence() {
             Professional Presence
           </h2>
           <p className="text-sm text-[#A1A1AA] max-w-2xl leading-relaxed">
-            Ongoing technical activity, engineering updates, and open-source contributions showing an active builder mindset.
+            Active technical writing, real open-source repositories, and a consistent engineering presence across platforms.
           </p>
         </FadeIn>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Column A: LinkedIn curated feed cards */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="flex items-center gap-2 mb-2">
+          <div className="lg:col-span-5 space-y-6">
+            <div className="flex items-center gap-2 mb-4">
               <LinkedinIcon className="w-5 h-5 text-[#7C86FF]" />
-              <h3 className="text-sm font-bold text-[#F5F5F5] tracking-tight">Curated Technical Reflections</h3>
+              <h3 className="text-sm font-bold text-[#F5F5F5] tracking-tight">Technical Reflections</h3>
             </div>
 
             <div className="space-y-4">
               {linkedinPosts.map((post, idx) => (
-                <GlassCard key={idx} className="p-5 bg-[#121218] border border-white/[0.06] flex flex-col justify-between hover:border-[#7C86FF]/20 transition-all duration-300">
+                <GlassCard
+                  key={idx}
+                  className="p-5 bg-[#121218] border border-white/[0.06] flex flex-col justify-between hover:border-[#7C86FF]/20 transition-all duration-300"
+                >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-[9px] font-mono text-[#7C86FF] bg-[#7C86FF]/10 px-2 py-0.5 rounded-full font-bold uppercase">
@@ -103,16 +116,11 @@ export function ProfessionalPresence() {
                       <span className="text-[9px] font-mono text-[#A1A1AA]">{post.date}</span>
                     </div>
 
-                    <h4 className="text-xs font-bold text-[#F5F5F5] tracking-tight">
-                      {post.title}
-                    </h4>
-
-                    <p className="text-[11px] text-[#A1A1AA] leading-relaxed">
-                      {post.excerpt}
-                    </p>
+                    <h4 className="text-xs font-bold text-[#F5F5F5] tracking-tight">{post.title}</h4>
+                    <p className="text-[11px] text-[#A1A1AA] leading-relaxed">{post.excerpt}</p>
                   </div>
 
-                  <a 
+                  <a
                     href={post.link}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -126,31 +134,36 @@ export function ProfessionalPresence() {
             </div>
           </div>
 
-          {/* Column B: GitHub Active Builder presentation */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="flex items-center gap-2 mb-2">
-              <GithubIcon className="w-5 h-5 text-[#7C86FF]" />
-              <h3 className="text-sm font-bold text-[#F5F5F5] tracking-tight">GitHub Active Repository Logs</h3>
+          {/* Column B: Real GitHub repos */}
+          <div className="lg:col-span-7 space-y-5">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <GithubIcon className="w-5 h-5 text-[#7C86FF]" />
+                <h3 className="text-sm font-bold text-[#F5F5F5] tracking-tight">Open Source Repositories</h3>
+              </div>
             </div>
 
-            <div className="space-y-6">
-              {/* Pinned Repositories */}
-              <div className="space-y-3">
-                {githubRepos.map((repo, idx) => (
-                  <GlassCard key={idx} className="p-5 bg-[#121218] border border-white/[0.06] hover:border-[#7C86FF]/20 transition-all duration-300">
-                    <div className="flex items-start justify-between gap-4 mb-2.5">
-                      <div className="flex items-center gap-2">
-                        <BookOpen className="w-4 h-4 text-[#A1A1AA]" />
-                        <h4 className="text-xs font-bold text-[#F5F5F5] font-mono tracking-tight">{repo.name}</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {githubRepos.map((repo, idx) => (
+                <a
+                  key={idx}
+                  href={repo.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block group"
+                >
+                  <GlassCard className="h-full p-5 bg-[#121218] border border-white/[0.06] hover:border-[#7C86FF]/25 transition-all duration-300 cursor-pointer">
+                    <div className="flex items-start justify-between gap-2 mb-2.5">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <BookOpen className="w-3.5 h-3.5 text-[#A1A1AA] shrink-0" />
+                        <h4 className="text-[11px] font-bold text-[#F5F5F5] font-mono tracking-tight truncate">
+                          {repo.name}
+                        </h4>
                       </div>
-                      
-                      <div className="flex items-center gap-3 font-mono text-[9px] text-[#A1A1AA]">
-                        <span className="flex items-center gap-1"><Star className="w-3 h-3 text-[#7C86FF]" />{repo.stars}</span>
-                        <span className="flex items-center gap-1"><GitFork className="w-3 h-3 text-[#A1A1AA]" />{repo.forks}</span>
-                      </div>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-[#7C86FF]/40 group-hover:text-[#7C86FF] transition-colors shrink-0" />
                     </div>
 
-                    <p className="text-[11px] text-[#A1A1AA] leading-relaxed mb-4">
+                    <p className="text-[11px] text-[#71717A] leading-relaxed mb-4">
                       {repo.description}
                     </p>
 
@@ -158,71 +171,21 @@ export function ProfessionalPresence() {
                       {repo.language}
                     </span>
                   </GlassCard>
-                ))}
-              </div>
-
-              {/* Recent Activity Log */}
-              <GlassCard className="p-5 bg-[#121218] border border-white/[0.06] space-y-4">
-                <div className="flex items-center gap-2 border-b border-white/[0.06] pb-3">
-                  <Flame className="w-4 h-4 text-[#7C86FF] shrink-0" />
-                  <h4 className="text-[10px] font-mono uppercase text-[#F5F5F5] tracking-wider font-semibold">Active Push Logs</h4>
-                </div>
-
-                <ul className="space-y-3">
-                  {githubActivity.map((activity, idx) => (
-                    <li key={idx} className="flex items-start justify-between gap-4 text-[10px] font-mono leading-relaxed">
-                      <div className="flex items-start gap-2 text-[#A1A1AA]">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#7C86FF] shrink-0 mt-0.5" />
-                        <span>{activity.event}</span>
-                      </div>
-                      <span className="text-white/20 shrink-0">{activity.date}</span>
-                    </li>
-                  ))}
-                </ul>
-              </GlassCard>
-
-              {/* Minimalist Contribution representation */}
-              <GlassCard className="p-5 bg-[#121218] border border-white/[0.06] space-y-3">
-                <div className="flex justify-between text-[9px] font-mono text-[#A1A1AA] uppercase tracking-wider font-semibold border-b border-white/[0.06] pb-2.5">
-                  <span>Open Source Contributions</span>
-                  <span>Active Season</span>
-                </div>
-
-                <div className="flex flex-col gap-1.5 pt-1.5">
-                  {/* Subtle clean vector contribution rows simulating the active builder signal */}
-                  <div className="flex flex-wrap gap-0.5 md:gap-1 justify-between">
-                    {Array.from({ length: 48 }).map((_, i) => {
-                      const level = 
-                        i === 3 || i === 8 || i === 19 || i === 24 || i === 31 || i === 42 ? "bg-[#7C86FF]" :
-                        i === 5 || i === 12 || i === 20 || i === 36 ? "bg-[#7C86FF]/60" :
-                        i === 11 || i === 15 || i === 27 || i === 47 ? "bg-[#7C86FF]/30" :
-                        "bg-[#1B1B26]";
-                      return (
-                        <div 
-                          key={i} 
-                          className={`w-2.5 h-2.5 rounded-[1.5px] ${level} transition-all duration-300 hover:scale-[1.1]`}
-                        />
-                      );
-                    })}
-                  </div>
-                  <div className="flex justify-between text-[8px] font-mono text-white/20 pt-1">
-                    <span>Less Active</span>
-                    <span>More Active</span>
-                  </div>
-                </div>
-              </GlassCard>
-
-              {/* GitHub Profile CTA */}
-              <a 
-                href="https://github.com/hemannayak" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-full text-xs font-semibold bg-[#7C86FF] hover:bg-[#7C86FF]/95 text-[#0B0B0F] transition-all duration-300 w-full cursor-pointer shadow-md"
-              >
-                <span>View Full GitHub Profile</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
+                </a>
+              ))}
             </div>
+
+            {/* GitHub Profile CTA */}
+            <a
+              href="https://github.com/hemannayak"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-full text-xs font-semibold bg-[#7C86FF] hover:bg-[#7C86FF]/90 text-[#0B0B0F] transition-all duration-300 w-full cursor-pointer shadow-md mt-2"
+            >
+              <GithubIcon className="w-4 h-4" />
+              <span>View Full GitHub Profile</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </div>
